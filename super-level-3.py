@@ -53,7 +53,7 @@ class SuperLevel(object):
 
     def stockDetail(self):
         df = self.get_price()
-        print('super-level-2:\n', df)
+        print('super-level-3:\n', df)
 
 if __name__ == "__main__":
     superLevel = SuperLevel()
