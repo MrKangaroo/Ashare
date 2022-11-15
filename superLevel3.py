@@ -1,5 +1,7 @@
 import sys
-import json,requests,datetime;      
+import json
+import requests
+import datetime     
 import pandas as pd
 import time
 import sched
@@ -55,9 +57,17 @@ class SuperLevel(object):
         df = self.get_price()
         print('super-level-3:\n', df)
 
+    def time_printer(self):
+        now = datetime.datetime.now()
+        ts = now.strftime('%Y-%m-%d %H:%M:%S')
+        self.stockDetail()
+        self.loop_monitor()
+        
+    def loop_monitor(self):
+        s = sched.scheduler(time.time, time.sleep)
+        s.enter(5, 1, self.time_printer, ())
+        s.run()
+
 if __name__ == "__main__":
     superLevel = SuperLevel()
-    # 生成调度器
-    s = sched.scheduler(time.time, time.sleep)  
-    s.enter(5, 2, superLevel.stockDetail() , ())
-    s.run()
+    superLevel.loop_monitor()
