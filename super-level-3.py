@@ -1,6 +1,8 @@
 import sys
 import json,requests,datetime;      
 import pandas as pd
+import time
+import sched
 
 class SuperLevel(object):
 
@@ -54,9 +56,8 @@ class SuperLevel(object):
         print('super-level-2:\n', df)
 
 if __name__ == "__main__":
-    now = datetime.datetime.now()
-    print(now)
     superLevel = SuperLevel()
-    superLevel.stockDetail() 
-    now = datetime.datetime.now()
-    print(now)
+    # 生成调度器
+    s = sched.scheduler(time.time, time.sleep)  
+    s.enter(5, 2, superLevel.stockDetail() , ())
+    s.run()
